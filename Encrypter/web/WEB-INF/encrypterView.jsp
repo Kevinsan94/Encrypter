@@ -82,12 +82,16 @@
             <form method="POST" action="doEncrypt">
                 <input id="phrase" type="text" name="phrase" 
                        placeholder="Frase a encriptar o desencriptar"><br/>
+				<input id="key" type="text" name="key" 
+                       placeholder="LLave para encriptar"><br/>
                 <input id="button" type="submit" value= "Submit"/><br/>
             </form>
              <div class="results">
-                <B>Texto introducido: </B><p id="m1">${result}</p><br/>
+                <B>Texto introducido: </B><p id="m1">${phrase}</p><br/>
+				<B>Llave: </B><p id="m1">${key}</p><br/>
                 <B>Texto encriptado: </B><p id="m1">${enc}</p><br/>
-                <B>Texto desencriptado: </B><p id="m1">${dec}</p><br/>
+				<B>Llave inversa: </B><p id="m1">${inv}</p><br/>
+			
              </div>
             
         </div>

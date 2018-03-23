@@ -25,12 +25,33 @@ public class DoEncrypt extends HttpServlet {
             throws ServletException, IOException {
         
         String phrase = request.getParameter("phrase");
-        String result = phrase;
-        
-        request.setAttribute("result", result);
-        request.setAttribute("enc", "fhdshsjngjdfhughjugnkd");
-        request.setAttribute("dec", "ahasashdjkdjkabdkjajkd");
-        
+		String key = request.getParameter("key");
+		Encrypter e = new Encrypter();
+		
+		double sq = Math.sqrt(key.length());
+		if (sq != (long) sq)
+            System.out.println("Invalid key length!!! Does not form a square matrix...");
+        else
+        {
+            int s = (int) sq;
+            if (e.check(key, s))
+            {
+                e.divide(key, s);
+				e.cofact(e.keymatrix, s);
+				
+				String enc = e.r;
+				String inv = e.inv;
+				
+				request.setAttribute("phrase", phrase.toLowerCase());
+				request.setAttribute("key", key.toLowerCase());
+				request.setAttribute("enc", enc);
+		
+				request.setAttribute("inv", inv);
+            }
+        }
+		
+
+		
         RequestDispatcher dispatcher 
                     = this.getServletContext().getRequestDispatcher("/WEB-INF/encrypterView.jsp");
             dispatcher.forward(request, response);
